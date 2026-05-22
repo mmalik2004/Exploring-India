@@ -1,0 +1,891 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg, #0a0a2e 0%, #1a0533 30%, #2d0b5e 55%, #6b0f7a 75%, #c0157a 100%);
+    overflow-x: hidden;
+}
+
+.bubble-container{
+    position:fixed;
+
+   width:100%;
+   height:100%;
+   
+   top:0;
+    left:0;
+
+    pointer-events:none; /* container invisible to mouse  clicks */
+    z-index:0; /*z-index: 0 means setting the stacking order (layer position) of an element.*/
+    overflow:hidden; /* any bubble that goes outside the screen , not shown out*/
+
+
+}
+.bubble{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255, 255, 255, 0.08);
+
+    border:1.5px solid rgba(255,255,255,0.4);/* white border */
+
+    box-shadow: 0 0 10px rgba(180,100,255,0.3),inset 0 0 8px rgba(255,255,255,0.1); /* subtle glow effect */
+    animation: floatAround 10s infinite ease-in-out;
+
+}
+/* @keyframes in CSS is used for animations.chnges style at various points*/
+@keyframes floatAround {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+    /* starting position — no movement, scale(1)=original size
+       translate(x, y) — x moves left/right, y moves up/down */
+    opacity: 0;
+    
+  }
+
+  10% {
+    opacity: 0.7;
+    
+  }
+
+  25% {
+    transform: translate(40px, -25vh) scale(1.05);
+      
+  }
+
+  50% {
+    transform: translate(-30px, -55vh) scale(1.1);
+   
+  }
+
+  75% {
+    transform: translate(50px, -80vh) scale(1.08);
+    opacity: 0.4;
+    
+  }
+
+  100% {
+    transform: translate(-20px, -110vh) scale(1.2);
+    /* exits above the screen (110vh = beyond screen)*/
+
+    opacity: 0;
+    
+  }
+}
+  /* nth-child(1) means "the 1st bubble" */
+.bubble:nth-child(1)  { width: 35px; height: 35px; left: 5%;  bottom: -50px; animation-duration: 9s;  animation-delay: 0s; }
+.bubble:nth-child(2)  { width: 20px; height: 20px; left: 12%; bottom: -50px; animation-duration: 12s; animation-delay: 1s; }
+.bubble:nth-child(3)  { width: 50px; height: 50px; left: 20%; bottom: -50px; animation-duration: 8s;  animation-delay: 2s; }
+.bubble:nth-child(4)  { width: 15px; height: 15px; left: 30%; bottom: -50px; animation-duration: 14s; animation-delay: 0.5s; }
+.bubble:nth-child(5)  { width: 40px; height: 40px; left: 38%; bottom: -50px; animation-duration: 10s; animation-delay: 3s; }
+.bubble:nth-child(6)  { width: 25px; height: 25px; left: 47%; bottom: -50px; animation-duration: 11s; animation-delay: 1.5s; }
+.bubble:nth-child(7)  { width: 60px; height: 60px; left: 55%; bottom: -50px; animation-duration: 7s;  animation-delay: 4s; }
+.bubble:nth-child(8)  { width: 18px; height: 18px; left: 63%; bottom: -50px; animation-duration: 13s; animation-delay: 2.5s; }
+.bubble:nth-child(9)  { width: 45px; height: 45px; left: 70%; bottom: -50px; animation-duration: 9s;  animation-delay: 0.8s; }
+.bubble:nth-child(10) { width: 22px; height: 22px; left: 78%; bottom: -50px; animation-duration: 15s; animation-delay: 3.5s; }
+.bubble:nth-child(11) { width: 30px; height: 30px; left: 85%; bottom: -50px; animation-duration: 10s; animation-delay: 1.2s; }
+.bubble:nth-child(12) { width: 55px; height: 55px; left: 92%; bottom: -50px; animation-duration: 8s;  animation-delay: 5s; }
+.bubble:nth-child(13) { width: 16px; height: 16px; left: 8%;  bottom: -50px; animation-duration: 11s; animation-delay: 6s; }
+.bubble:nth-child(14) { width: 38px; height: 38px; left: 18%; bottom: -50px; animation-duration: 9s;  animation-delay: 2.8s; }
+.bubble:nth-child(15) { width: 28px; height: 28px; left: 35%; bottom: -50px; animation-duration: 13s; animation-delay: 4.5s; }
+.bubble:nth-child(16) { width: 48px; height: 48px; left: 50%; bottom: -50px; animation-duration: 7s;  animation-delay: 1.8s; }
+.bubble:nth-child(17) { width: 14px; height: 14px; left: 60%; bottom: -50px; animation-duration: 16s; animation-delay: 0.3s; }
+.bubble:nth-child(18) { width: 42px; height: 42px; left: 72%; bottom: -50px; animation-duration: 10s; animation-delay: 3.2s; }
+.bubble:nth-child(19) { width: 24px; height: 24px; left: 82%; bottom: -50px; animation-duration: 12s; animation-delay: 5.5s; }
+.bubble:nth-child(20) { width: 36px; height: 36px; left: 3%;  bottom: -50px; animation-duration: 8s;  animation-delay: 7s; }
+/* animation-delay  without delay all the bubbles will  start at same time */
+
+/* hide the actual checkbox — we never want to see it */
+.nav-toggle-input {
+  display: none;
+}
+
+/* ── 3 DOT MENU BUTTON ── */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: block;
+}
+
+/* ── SIDE NAV ── */
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: rgba(15, 5, 40, 0.75);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 999;
+  padding: 80px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transform: translateX(-100%);
+  /* hidden off screen left by default */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* when checkbox checked — slide nav in */
+.nav-toggle-input:checked ~ .side-nav {
+  transform: translateX(0);
+}
+
+/* ── CLOSE BUTTON ── */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(90deg);
+}
+
+/* ── NAV TITLE ── */
+.nav-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ffffff, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── NAV LINKS ── */
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(8px);
+  color: white;
+}
+
+.nav-link.active {
+  background: rgba(192, 132, 252, 0.2);
+  border-color: rgba(192, 132, 252, 0.4);
+  color: #c084fc;
+}
+
+/* ── DARK OVERLAY ── */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  display: block;
+}
+
+/* when checkbox checked — overlay fades in */
+.nav-toggle-input:checked ~ .nav-overlay {
+  opacity: 1;
+  pointer-events: all;
+}
+.nav-toggle-input {
+  display: none;
+  /* hidden checkbox — our CSS toggle switch */
+}
+
+/* ── 3 DOT BUTTON ── */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  /* sits above everything */
+  background: rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.menu-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  display: block;
+}
+
+/* ── SIDE NAV ── */
+.side-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: rgba(15, 5, 40, 0.75);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 999;
+  padding: 80px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transform: translateX(-100%);
+  /* hidden off screen to the left */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* checkbox checked = nav slides in */
+.nav-toggle-input:checked ~ .side-nav {
+  transform: translateX(0);
+}
+
+/* ── CLOSE BUTTON ── */
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: rotate(90deg);
+  /* X spins on hover */
+}
+
+/* ── NAV TITLE ── */
+.nav-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ffffff, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* gradient text — white to purple */
+}
+
+/* ── NAV LINKS ── */
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(8px);
+  /* nudges right on hover */
+  color: white;
+}
+
+/* ── DARK OVERLAY ── */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  display: block;
+}
+
+/* checkbox checked = overlay fades in */
+.nav-toggle-input:checked ~ .nav-overlay {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ═══════════════════════════════
+   PART 3 — HERO SECTION
+═══════════════════════════════ */
+
+.hero {
+  min-height: 100vh;
+  /* full screen height */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* centers hero-content both vertically and horizontally */
+
+  text-align: center;
+  /* centers all text inside */
+
+  position: relative;
+  z-index: 1;
+  /* sits above bubbles (z-index 0) but below nav (999) */
+
+  padding: 20px;
+  /* breathing room on small screens */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  /* 20px space between each child element */
+
+  animation: fadeInUp 1s ease forwards;
+  /* whole content block fades in and rises on page load */
+  /* forwards = stays in final position after animation ends */
+}
+
+/* ── TAGLINE (small text above heading) ── */
+.hero-tagline {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  /* spreads letters apart — gives premium feel */
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  /* muted white */
+
+  animation: fadeInUp 0.8s ease 0.2s forwards;
+  /* 0.2s delay — appears slightly after page loads */
+  opacity: 0;
+  /* starts invisible — fadeInUp brings it in */
+}
+
+/* ── MAIN HEADING ── */
+.hero-heading {
+  font-size: clamp(42px, 8vw, 90px);
+  /* clamp(min, preferred, max) */
+  /* min 42px on small screens */
+  /* 8vw = 8% of viewport width — scales with screen */
+  /* max 90px on very large screens */
+  /* this makes font perfectly sized on ALL devices */
+
+  font-weight: 700;
+  line-height: 1.1;
+  /* tight line spacing for big headings */
+
+  color: white;
+
+  text-shadow: 0 0 40px rgba(192, 132, 252, 0.5);
+  /* purple glow behind the text */
+  /* 0 0 = no offset, 40px = spread, rgba = purple transparent */
+
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+  opacity: 0;
+  /* 0.4s delay — appears after tagline */
+}
+
+/* ── "India" word in gradient color ── */
+.hero-highlight {
+  background: linear-gradient(90deg, #c084fc, #f472b6, #fb923c);
+  /* purple → pink → orange gradient */
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* clips gradient to text shape — colored text effect */
+
+  display: block;
+  /* puts "India" on its own line */
+}
+
+/* ── SUBTITLE ── */
+.hero-subtitle {
+  font-size: clamp(14px, 2vw, 18px);
+  /* scales between 14px and 18px based on screen */
+
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.8;
+  max-width: 500px;
+  /* limits subtitle width so long text doesn't stretch full screen */
+
+  animation: fadeInUp 0.8s ease 0.6s forwards;
+  opacity: 0;
+  /* 0.6s delay — appears after heading */
+}
+
+/* ── CTA BUTTON ── */
+.hero-btn {
+  display: inline-block;
+  /* allows padding and sizing on an anchor tag */
+
+  margin-top: 10px;
+  padding: 16px 40px;
+  /* generous padding — big clickable area */
+
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+
+  background: rgba(255, 255, 255, 0.12);
+  /* glass transparent background */
+
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  /* fully rounded pill shape */
+
+  backdrop-filter: blur(10px);
+  /* glass blur effect */
+
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+  /* soft purple glow around button */
+
+  transition: all 0.3s ease;
+
+  animation: fadeInUp 0.8s ease 0.8s forwards;
+  opacity: 0;
+  /* 0.8s delay — appears last, after all other text */
+}
+
+.hero-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  /* brighter on hover */
+
+  transform: translateY(-4px) scale(1.05);
+  /* floats up 4px and grows slightly */
+
+  box-shadow: 0 10px 40px rgba(192, 132, 252, 0.5),
+              0 0 20px rgba(244, 114, 182, 0.3);
+  /* stronger purple + pink glow on hover */
+
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  /* slight press-down feel when clicked */
+}
+
+/* ── FADE IN UP ANIMATION ── */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+    /* starts 30px below its final position */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    /* moves up to normal position and fully visible */
+  }
+}
+/* ── CITY SECTION ── */
+.city-section {
+  min-height: 100vh;
+  padding: 80px 40px 60px;
+  position: relative;
+  z-index: 1;
+
+  display: none;
+  /* hidden by default — only shows when targeted */
+}
+
+.city-section:target {
+  display: block;
+  /* :target means — show this section when URL has #dehradun etc */
+  /* when nav link href="#dehradun" is clicked, id="dehradun" becomes target */
+  /* this is pure CSS — no JavaScript needed */
+
+  animation: sectionFadeIn 0.6s ease forwards;
+  /* smooth fade in when city is selected */
+}
+
+@keyframes sectionFadeIn {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* also hide hero when a city is targeted */
+.city-section:target ~ .hero {
+  display: none;
+}
+
+/* ── CITY HEADER ── */
+.city-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.city-title {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 30px rgba(192, 132, 252, 0.6);
+  /* purple glow on city name */
+  margin-bottom: 10px;
+  animation: fadeInUp 0.8s ease 0.1s forwards;
+  opacity: 0;
+}
+
+.city-subtitle {
+  font-size: clamp(14px, 2vw, 20px);
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.back-btn {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.back-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateX(-4px);
+  /* nudges left — matches the back direction */
+}
+
+/* ── CARDS GRID ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 equal columns — first row gets 3 cards */
+  /* 4th card goes to second row automatically */
+
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* centers the grid horizontally */
+
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+  opacity: 0;
+}
+
+/* ── SINGLE CARD ── */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  /* very transparent white — glass base */
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* subtle white border */
+
+  border-radius: 20px;
+  overflow: hidden;
+  /* clips image corners to match card border-radius */
+
+  backdrop-filter: blur(15px);
+  /* blurs background through the card — glassmorphism */
+
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+              0 0 0 1px rgba(255, 255, 255, 0.05);
+  /* deep shadow below + thin inner border */
+
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* cubic-bezier gives bouncy feel on hover */
+
+  transform-style: preserve-3d;
+  /* tells browser to render children in 3D space */
+  /* required for 3D tilt effect to work */
+
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-12px) rotateX(5deg) rotateY(-5deg) scale(1.02);
+  /* translateY(-12px) = floats up 12px */
+  /* rotateX(5deg) = tilts top of card away from you */
+  /* rotateY(-5deg) = tilts card slightly left */
+  /* scale(1.02) = grows slightly */
+  /* ALL TOGETHER = 3D tilt floating effect */
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+              0 0 30px rgba(192, 132, 252, 0.4),
+              0 0 60px rgba(244, 114, 182, 0.2);
+  /* stronger shadow + purple + pink glow on hover */
+
+  border-color: rgba(255, 255, 255, 0.4);
+  /* border brightens on hover */
+}
+
+/* ── CARD IMAGE WRAPPER ── */
+.card-img-wrap {
+  position: relative;
+  /* needed so overlay can position itself inside */
+  overflow: hidden;
+  height: 220px;
+  /* fixed height for all images */
+}
+
+/* ── CARD IMAGE ── */
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* fills the container without stretching */
+  /* crops image to fit — always looks clean */
+
+  transition: transform 0.5s ease;
+  /* smooth zoom animation */
+}
+
+.card:hover .card-img {
+  transform: scale(1.12);
+  /* image zooms in when card is hovered */
+  /* .card:hover .card-img means — when card is hovered, target the img inside */
+}
+
+/* ── GLASS OVERLAY ON IMAGE ── */
+.card-overlay {
+  position: absolute;
+  /* sits on top of the image */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(10, 5, 40, 0.6) 100%
+  );
+  /* transparent at top, dark purple at bottom */
+  /* this makes card-info text readable over image */
+
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .card-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(192, 132, 252, 0.1) 0%,
+    rgba(10, 5, 40, 0.7) 100%
+  );
+  /* slight purple tint on hover */
+}
+
+/* ── CARD INFO (name + description) ── */
+.card-info {
+  padding: 20px;
+  /* space inside card below image */
+}
+
+.card-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 8px;
+
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-name {
+  color: #c084fc;
+  /* name turns purple on hover */
+}
+
+.card-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════
+   PART 5 — FOOTER + RESPONSIVE
+═══════════════════════════════ */
+
+/* ── FOOTER ── */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: 50px 40px;
+  margin-top: 40px;
+
+  background: rgba(255, 255, 255, 0.05);
+  /* very subtle glass */
+
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  /* thin glowing top border */
+
+  box-shadow: 0 -10px 40px rgba(192, 132, 252, 0.1);
+  /* upward purple glow from footer */
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.footer-logo {
+  font-size: 26px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* same gradient text as nav title */
+}
+
+.footer-tagline {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-cities {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #c084fc;
+}
+
+.footer-dot {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 6px;
+}
+
+/* ── RESPONSIVE — TABLET ── */
+@media (max-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns on tablets instead of 3 */
+    gap: 20px;
+  }
+
+  .city-section {
+    padding: 60px 24px 40px;
+  }
+}
+
+/* ── RESPONSIVE — MOBILE ── */
+@media (max-width: 560px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    /* single column on mobile */
+    gap: 16px;
+  }
+
+  .city-header {
+    margin-bottom: 30px;
+  }
+
+  .card-img-wrap {
+    height: 180px;
+  }
+.side-nav {
+    width: 100%;
+    /* nav takes full width on mobile */
+  }
+
+  .hero-heading {
+    font-size: 36px;
+  }
+
+  .footer {
+    padding: 30px 20px;
+  }
+}
