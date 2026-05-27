@@ -384,9 +384,9 @@ body{
   pointer-events: all;
 }
 
-/* ═══════════════════════════════
+/* 
    PART 3 — HERO SECTION
-═══════════════════════════════ */
+*/
 
 .hero {
   min-height: 100vh;
@@ -439,27 +439,52 @@ body{
 /* ── MAIN HEADING ── */
 .hero-heading {
   font-size: clamp(42px, 8vw, 90px);
-  /* clamp(min, preferred, max) */
-  /* min 42px on small screens */
-  /* 8vw = 8% of viewport width — scales with screen */
-  /* max 90px on very large screens */
-  /* this makes font perfectly sized on ALL devices */
+
 
   font-weight: 700;
   line-height: 1.1;
-  /* tight line spacing for big headings */
-
   color: white;
 
   text-shadow: 0 0 40px rgba(192, 132, 252, 0.5);
-  /* purple glow behind the text */
-  /* 0 0 = no offset, 40px = spread, rgba = purple transparent */
-
+  min-height:120px;
   animation: fadeInUp 0.8s ease 0.4s forwards;
   opacity: 0;
-  /* 0.4s delay — appears after tagline */
+}
+/* ── TYPING CURSOR ── */
+.cursor {
+  display: inline-block;
+  /* inline-block so it sits right next to the typed text */
+  /* without this cursor would jump to next line */
+
+  color: #c084fc;
+  /* purple color to match our theme */
+
+  font-weight: 300;
+  /* thin weight makes it look like a real cursor */
+
+  margin-left: 4px;
+  /* tiny gap between last typed letter and cursor */
+
+  animation: blink 0.8s infinite;
+  /* blink - name of keyframe */
+  /* 0.8s = one blink cycle takes 0.8 seconds */
+  /* infinite = keeps blinking forever */
 }
 
+@keyframes blink {
+  0% {
+    opacity: 1;
+    
+  }
+  50% {
+    opacity: 0;
+    
+  }
+  100% {
+    opacity: 1;
+    
+  }
+}
 /* ── "India" word in gradient color ── */
 .hero-highlight {
   background: linear-gradient(90deg, #c084fc, #f472b6, #fb923c);
@@ -467,35 +492,34 @@ body{
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* clips gradient to text shape — colored text effect */
-
+  
   display: block;
   /* puts "India" on its own line */
 }
 
-/* ── SUBTITLE ── */
+/*  SUBTITLE */
 .hero-subtitle {
   font-size: clamp(14px, 2vw, 18px);
-  /* scales between 14px and 18px based on screen */
+  
 
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.8;
   max-width: 500px;
-  /* limits subtitle width so long text doesn't stretch full screen */
+  
 
   animation: fadeInUp 0.8s ease 0.6s forwards;
   opacity: 0;
-  /* 0.6s delay — appears after heading */
+  
 }
 
 /* ── CTA BUTTON ── */
 .hero-btn {
   display: inline-block;
-  /* allows padding and sizing on an anchor tag */
+  
 
   margin-top: 10px;
   padding: 16px 40px;
-  /* generous padding — big clickable area */
+  
 
   font-size: 16px;
   font-weight: 600;
@@ -507,19 +531,13 @@ body{
 
   border: 1.5px solid rgba(255, 255, 255, 0.4);
   border-radius: 50px;
-  /* fully rounded pill shape */
-
   backdrop-filter: blur(10px);
-  /* glass blur effect */
-
   box-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
-  /* soft purple glow around button */
 
   transition: all 0.3s ease;
 
   animation: fadeInUp 0.8s ease 0.8s forwards;
   opacity: 0;
-  /* 0.8s delay — appears last, after all other text */
 }
 
 .hero-btn:hover {
@@ -811,7 +829,7 @@ body{
   font-size: 26px;
   font-weight: 700;
   background: linear-gradient(90deg, #ffffff, #c084fc);
-  -webkit-background-clip: text;
+  -webkit-background-clip:text;
   -webkit-text-fill-color: transparent;
   /* same gradient text as nav title */
 }
@@ -878,7 +896,7 @@ body{
   }
 .side-nav {
     width: 100%;
-    /* nav takes full width on mobile */
+    
   }
 
   .hero-heading {
@@ -888,4 +906,318 @@ body{
   .footer {
     padding: 30px 20px;
   }
+}
+/* 
+   THEME TOGGLE BUTTON
+ */
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+
+  border-radius: 50px;
+
+  padding: 8px 14px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+
+.theme-icon {
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.moon {
+  opacity: 1;
+}
+
+.sun {
+  opacity: 0.4;
+}
+.light-theme .moon {
+  opacity: 0.4;
+ 
+}
+
+.light-theme .sun {
+  opacity: 1;
+  
+}
+.toggle-track {
+  width: 44px;
+  height: 24px;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  position: relative;
+  transition: background 0.4s ease;
+}
+
+.light-theme .toggle-track {
+  background: rgba(139, 92, 246, 0.3);
+  
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+
+.toggle-thumb {
+  width: 18px;
+  height: 18px;
+  
+
+  background: white;
+  border-radius: 50%;
+  
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(2px);
+  
+
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  
+}
+
+.light-theme .toggle-thumb {
+  transform: translateY(-50%) translateX(24px);
+  background: #7c3aed;
+  
+
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+  
+}
+.light-theme {
+  background: linear-gradient(135deg, #f0e6ff 0%, #e6f0ff 40%, #ffe6f5 100%);
+  
+}
+
+
+.light-theme .bubble {
+  background: rgba(139, 92, 246, 0.08);
+  
+
+  border: 1.5px solid rgba(139, 92, 246, 0.25);
+  
+
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.15),
+              inset 0 0 8px rgba(139, 92, 246, 0.05);
+  
+}
+
+
+.light-theme .menu-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+}
+
+.light-theme .dot {
+  background: #7c3aed;
+  
+}
+
+
+.light-theme .side-nav {
+  background: rgba(255, 255, 255, 0.85);
+  
+
+  border-right: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 4px 0 30px rgba(139, 92, 246, 0.15);
+}
+
+.light-theme .nav-title {
+  background: linear-gradient(90deg, #4c1d95, #7c3aed);
+  -webkit-background-clip: text;
+  
+}
+.light-theme .nav-link {
+  color: rgba(60, 20, 100, 0.8);
+ 
+}
+.light-theme .nav-link:hover {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.2);
+  color: #4c1d95;
+}
+
+.light-theme .close-btn {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.2);
+  color: #4c1d95;
+}
+
+
+.light-theme .nav-overlay {
+  background: rgba(100, 60, 150, 0.3);
+  
+}
+
+
+.light-theme .hero-tagline {
+  color: rgba(76, 29, 149, 0.7);
+  
+}
+
+.light-theme .hero-heading {
+  color: #2e1065;
+  
+
+  text-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  
+}
+
+.light-theme .hero-subtitle {
+  color: rgba(76, 29, 149, 0.65);
+  
+}
+
+.light-theme .hero-btn {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+  color: #4c1d95;
+
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.light-theme .hero-btn:hover {
+  background: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 10px 40px rgba(139, 92, 246, 0.35);
+  color: #2e1065;
+}
+
+
+.light-theme .city-title {
+  color: #2e1065;
+  text-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+.light-theme .city-subtitle {
+  color: rgba(76, 29, 149, 0.65);
+}
+
+.light-theme .back-btn {
+  color: #4c1d95;
+  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.light-theme .back-btn:hover {
+  background: rgba(139, 92, 246, 0.2);
+  color: #2e1065;
+}
+
+
+.light-theme .card {
+  background: rgba(255, 255, 255, 0.75);
+  
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  
+
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.12),
+              0 2px 8px rgba(0, 0, 0, 0.08);
+  
+
+  backdrop-filter: blur(20px);
+}
+
+.light-theme .card:hover {
+  box-shadow: 0 20px 60px rgba(139, 92, 246, 0.25),
+              0 0 30px rgba(192, 132, 252, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.light-theme .card-name {
+  color: #2e1065;
+  
+}
+
+.light-theme .card:hover .card-name {
+  color: #7c3aed;
+  
+}
+
+.light-theme .card-desc {
+  color: rgba(76, 29, 149, 0.65);
+  
+}
+
+.light-theme .card-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(240, 230, 255, 0.5) 100%
+  );
+  
+}
+
+
+.light-theme .cursor {
+  color: #7c3aed;
+  
+}
+
+
+.light-theme .footer {
+  background: rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(139, 92, 246, 0.2);
+  box-shadow: 0 -10px 40px rgba(139, 92, 246, 0.08);
+}
+
+.light-theme .footer-logo {
+  background: linear-gradient(90deg, #4c1d95, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.light-theme .footer-tagline {
+  color: rgba(76, 29, 149, 0.6);
+}
+
+.light-theme .footer-link {
+  color: rgba(76, 29, 149, 0.7);
+}
+
+.light-theme .footer-link:hover {
+  color: #7c3aed;
+}
+
+.light-theme .footer-dot {
+  color: rgba(139, 92, 246, 0.4);
+}
+
+.light-theme .footer-copy {
+  color: rgba(76, 29, 149, 0.4);
+}
+
+
+.light-theme .theme-toggle {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
 }

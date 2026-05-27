@@ -37,6 +37,24 @@
 
   </nav>
 
+  <!-- THEME TOGGLE -->
+   <div class="theme-toggle" id="themeToggle">
+
+    <span class="theme-icon moon">🌙</span>
+
+    <div class="toggle-track">
+      <!--  pill shaped container -->
+      <!-- the sliding circle moves inside this -->
+
+      <div class="toggle-thumb"></div>
+      <!-- toggle-thumb is the sliding white circle -->
+      <!-- it slides left or right based on theme -->
+
+    </div>
+
+    <span class="theme-icon sun">☀️</span>
+
+  </div>
   <!-- bubbles background -->
   <div class="bubbles-container">
     <span class="bubble"></span>
@@ -244,7 +262,12 @@
       <p class="hero-tagline">Welcome to India</p>
       <!-- small text that appears above the main heading -->
 
-      <h1 class="hero-heading">Explore Beautiful<br><span class="hero-highlight">India</span></h1>
+  <h1 class="hero-heading">
+    <span id="typingText"></span>
+  
+    <span class="cursor">|</span>
+  
+  </h1>
       <!-- br = line break, splits heading into 2 lines -->
       <!-- span.hero-highlight = colored gradient word "India" -->
 
@@ -273,6 +296,7 @@
       <p class="footer-copy">© 2025 Explore India · All rights reserved</p>
     </div>
   </footer>
+<script src="script.js"></script>
 
 </body>
 </html>
